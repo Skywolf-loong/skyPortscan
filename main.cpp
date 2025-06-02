@@ -68,6 +68,7 @@ public:
     ServiceRecognizer(QObject *parent = nullptr) : QObject(parent) {
         loadServiceDefinitions();
     }
+
     struct ServiceInfo {
         QString name;
         QString displayName;
@@ -76,10 +77,6 @@ public:
         QList<int> possiblePorts;
         QString category;
     };
-
-    ServiceRecognizer() {
-        loadServiceDefinitions();
-    }
 
     QMap<QString, ServiceInfo> recognize(int port, const QString &banner) {
         QMap<QString, ServiceInfo> results;
@@ -215,116 +212,114 @@ private:
         mysql.possiblePorts = {3306};
         mysql.category = "database";
         serviceDefinitions["mysql"] = mysql;
-        
-        // Telnet (���Ĵ���)
-    ServiceInfo telnet;
-    telnet.name = "telnet";
-    telnet.displayName = "Telnet";
-    telnet.bannerRegex = QRegularExpression("Telnet");
-    telnet.possiblePorts = {23};
-    telnet.category = "remote";
-    serviceDefinitions["telnet"] = telnet;
- 
-    // RDP (Զ������Э��)
-    ServiceInfo rdp;
-    rdp.name = "rdp";
-    rdp.displayName = "RDP";
-    rdp.bannerRegex = QRegularExpression("Microsoft Terminal Services");
-    rdp.possiblePorts = {3389};
-    rdp.category = "remote";
-    serviceDefinitions["rdp"] = rdp;
- 
-    // SMB/NetBIOS (�ļ�����)
-    ServiceInfo smb;
-    smb.name = "smb";
-    smb.displayName = "SMB";
-    smb.bannerRegex = QRegularExpression("SMB");
-    smb.possiblePorts = {135, 137, 138, 139, 445};
-    smb.category = "file";
-    serviceDefinitions["smb"] = smb;
- 
-    // LDAP (Ŀ¼����)
-    ServiceInfo ldap;
-    ldap.name = "ldap";
-    ldap.displayName = "LDAP";
-    ldap.bannerRegex = QRegularExpression("LDAP");
-    ldap.possiblePorts = {389};
-    ldap.category = "directory";
-    serviceDefinitions["ldap"] = ldap;
- 
-    // SQL Server
-    ServiceInfo sqlserver;
-    sqlserver.name = "sqlserver";
-    sqlserver.displayName = "SQL Server";
-    sqlserver.bannerRegex = QRegularExpression("SQL Server");
-    sqlserver.possiblePorts = {1433};
-    sqlserver.category = "database";
-    serviceDefinitions["sqlserver"] = sqlserver;
- 
-    // PostgreSQL
-    ServiceInfo postgresql;
-    postgresql.name = "postgresql";
-    postgresql.displayName = "PostgreSQL";
-    postgresql.bannerRegex = QRegularExpression("PostgreSQL");
-    postgresql.possiblePorts = {5432};
-    postgresql.category = "database";
-    serviceDefinitions["postgresql"] = postgresql;
- 
-    // Oracle DB
-    ServiceInfo oracle;
-    oracle.name = "oracle";
-    oracle.displayName = "Oracle DB";
-    oracle.bannerRegex = QRegularExpression("Oracle");
-    oracle.possiblePorts = {1521};
-    oracle.category = "database";
-    serviceDefinitions["oracle"] = oracle;
- 
-    // VNC (Զ�̿���)
-    ServiceInfo vnc;
-    vnc.name = "vnc";
-    vnc.displayName = "VNC";
-    vnc.bannerRegex = QRegularExpression("RFB");
-    vnc.possiblePorts = {5900, 5901, 5902};
-    vnc.category = "remote";
-    serviceDefinitions["vnc"] = vnc;
- 
-    // Redis (�ڴ����ݿ�)
-    ServiceInfo redis;
-    redis.name = "redis";
-    redis.displayName = "Redis";
-    redis.bannerRegex = QRegularExpression("Redis");
-    redis.possiblePorts = {6379};
-    redis.category = "database";
-    serviceDefinitions["redis"] = redis;
- 
-    // Elasticsearch
-    ServiceInfo elasticsearch;
-    elasticsearch.name = "elasticsearch";
-    elasticsearch.displayName = "Elasticsearch";
-    elasticsearch.bannerRegex = QRegularExpression("Elasticsearch");
-    elasticsearch.possiblePorts = {9200, 9300};
-    elasticsearch.category = "database";
-    serviceDefinitions["elasticsearch"] = elasticsearch;
- 
-    // Memcached
-    ServiceInfo memcached;
-    memcached.name = "memcached";
-    memcached.displayName = "Memcached";
-    memcached.bannerRegex = QRegularExpression("Memcached");
-    memcached.possiblePorts = {11211};
-    memcached.category = "cache";
-    serviceDefinitions["memcached"] = memcached;
- 
-    // MongoDB
-    ServiceInfo mongodb;
-    mongodb.name = "mongodb";
-    mongodb.displayName = "MongoDB";
-    mongodb.bannerRegex = QRegularExpression("MongoDB");
-    mongodb.possiblePorts = {27017, 27018};
-    mongodb.category = "database";
-    serviceDefinitions["mongodb"] = mongodb;
 
-        // 添加更多服务...
+        // Telnet (远程登录)
+        ServiceInfo telnet;
+        telnet.name = "telnet";
+        telnet.displayName = "Telnet";
+        telnet.bannerRegex = QRegularExpression("Telnet");
+        telnet.possiblePorts = {23};
+        telnet.category = "remote";
+        serviceDefinitions["telnet"] = telnet;
+
+        // RDP (远程桌面协议)
+        ServiceInfo rdp;
+        rdp.name = "rdp";
+        rdp.displayName = "RDP";
+        rdp.bannerRegex = QRegularExpression("Microsoft Terminal Services");
+        rdp.possiblePorts = {3389};
+        rdp.category = "remote";
+        serviceDefinitions["rdp"] = rdp;
+
+        // SMB/NetBIOS (文件共享)
+        ServiceInfo smb;
+        smb.name = "smb";
+        smb.displayName = "SMB";
+        smb.bannerRegex = QRegularExpression("SMB");
+        smb.possiblePorts = {135, 137, 138, 139, 445};
+        smb.category = "file";
+        serviceDefinitions["smb"] = smb;
+
+        // LDAP (目录服务)
+        ServiceInfo ldap;
+        ldap.name = "ldap";
+        ldap.displayName = "LDAP";
+        ldap.bannerRegex = QRegularExpression("LDAP");
+        ldap.possiblePorts = {389};
+        ldap.category = "directory";
+        serviceDefinitions["ldap"] = ldap;
+
+        // SQL Server
+        ServiceInfo sqlserver;
+        sqlserver.name = "sqlserver";
+        sqlserver.displayName = "SQL Server";
+        sqlserver.bannerRegex = QRegularExpression("SQL Server");
+        sqlserver.possiblePorts = {1433};
+        sqlserver.category = "database";
+        serviceDefinitions["sqlserver"] = sqlserver;
+
+        // PostgreSQL
+        ServiceInfo postgresql;
+        postgresql.name = "postgresql";
+        postgresql.displayName = "PostgreSQL";
+        postgresql.bannerRegex = QRegularExpression("PostgreSQL");
+        postgresql.possiblePorts = {5432};
+        postgresql.category = "database";
+        serviceDefinitions["postgresql"] = postgresql;
+
+        // Oracle DB
+        ServiceInfo oracle;
+        oracle.name = "oracle";
+        oracle.displayName = "Oracle DB";
+        oracle.bannerRegex = QRegularExpression("Oracle");
+        oracle.possiblePorts = {1521};
+        oracle.category = "database";
+        serviceDefinitions["oracle"] = oracle;
+
+        // VNC (远程控制)
+        ServiceInfo vnc;
+        vnc.name = "vnc";
+        vnc.displayName = "VNC";
+        vnc.bannerRegex = QRegularExpression("RFB");
+        vnc.possiblePorts = {5900, 5901, 5902};
+        vnc.category = "remote";
+        serviceDefinitions["vnc"] = vnc;
+
+        // Redis (内存数据库)
+        ServiceInfo redis;
+        redis.name = "redis";
+        redis.displayName = "Redis";
+        redis.bannerRegex = QRegularExpression("Redis");
+        redis.possiblePorts = {6379};
+        redis.category = "database";
+        serviceDefinitions["redis"] = redis;
+
+        // Elasticsearch
+        ServiceInfo elasticsearch;
+        elasticsearch.name = "elasticsearch";
+        elasticsearch.displayName = "Elasticsearch";
+        elasticsearch.bannerRegex = QRegularExpression("Elasticsearch");
+        elasticsearch.possiblePorts = {9200, 9300};
+        elasticsearch.category = "database";
+        serviceDefinitions["elasticsearch"] = elasticsearch;
+
+        // Memcached
+        ServiceInfo memcached;
+        memcached.name = "memcached";
+        memcached.displayName = "Memcached";
+        memcached.bannerRegex = QRegularExpression("Memcached");
+        memcached.possiblePorts = {11211};
+        memcached.category = "cache";
+        serviceDefinitions["memcached"] = memcached;
+
+        // MongoDB
+        ServiceInfo mongodb;
+        mongodb.name = "mongodb";
+        mongodb.displayName = "MongoDB";
+        mongodb.bannerRegex = QRegularExpression("MongoDB");
+        mongodb.possiblePorts = {27017, 27018};
+        mongodb.category = "database";
+        serviceDefinitions["mongodb"] = mongodb;
     }
 
     QMap<QString, ServiceInfo> serviceDefinitions;
@@ -424,7 +419,7 @@ public:
     ScanTask(const QString &target, int port, ScannerSettings *settings,
              ServiceRecognizer *recognizer, QObject *receiver)
         : m_target(target), m_port(port), m_settings(settings),
-          m_recognizer(recognizer), m_receiver(receiver) {}
+        m_recognizer(recognizer), m_receiver(receiver) {}
 
     void run() override {
         // TCP连接扫描
@@ -470,7 +465,6 @@ public:
             QString webFramework = "";
             if (category == "web") {
                 title = fetchHttpTitle(m_port);
-                webFramework = fetchWebFramework();
             }
 
             QMetaObject::invokeMethod(m_receiver, "portFound",
@@ -519,7 +513,7 @@ private:
 
     QString fetchHttpTitle(int port) {
         QString protocol = (port == 443) ? "https" : "http";
-        QUrl url(protocol + "://" + m_target);
+        QUrl url(protocol + "://" + m_target + ":" + QString::number(port));
         QEventLoop loop;
         QString title = "";
 
@@ -571,8 +565,8 @@ private:
 
                 // 提取标题
                 QRegularExpression titleRe("<title>(.*?)</title>",
-                                          QRegularExpression::CaseInsensitiveOption |
-                                          QRegularExpression::DotMatchesEverythingOption);
+                                           QRegularExpression::CaseInsensitiveOption |
+                                               QRegularExpression::DotMatchesEverythingOption);
                 QRegularExpressionMatch titleMatch = titleRe.match(html);
 
                 if (titleMatch.hasMatch()) {
@@ -586,11 +580,6 @@ private:
         loop.exec();
         reply->deleteLater();
         return title;
-    }
-
-    QString fetchWebFramework() {
-        // 实际实现在ServiceRecognizer中
-        return "";
     }
 
     QString m_target;
@@ -977,7 +966,7 @@ private:
                 resultsTable->item(row, 4)->text(),
                 resultsTable->item(row, 5)->text(),
                 resultsTable->item(row, 7)->toolTip()
-            );
+                );
         });
     }
 
@@ -985,17 +974,17 @@ private:
         if (settings->value("legalAccepted", false).toBool()) return;
 
         int result = QMessageBox::information(this, "法律声明",
-            "端口扫描工具使用声明：\n\n"
-            "1. 仅扫描您拥有合法权限的目标系统\n"
-            "2. 禁止用于非法目的或未经授权的扫描\n"
-            "3. 使用本工具即表示您同意承担所有相关责任\n\n"
-            "请确认您已理解并同意以上条款",
-            QMessageBox::Ok | QMessageBox::Cancel);
+                                              "端口扫描工具使用声明：\n\n"
+                                              "1. 仅扫描您拥有合法权限的目标系统\n"
+                                              "2. 禁止用于非法目的或未经授权的扫描\n"
+                                              "3. 使用本工具即表示您同意承担所有相关责任\n\n"
+                                              "请确认您已理解并同意以上条款",
+                                              QMessageBox::Ok | QMessageBox::Cancel);
 
         if (result == QMessageBox::Ok) {
             settings->setValue("legalAccepted", true);
         } else {
-            close();
+            QApplication::exit(0); // 退出整个程序
         }
     }
 
@@ -1018,15 +1007,16 @@ private:
 
     void showAbout() {
         QMessageBox::about(this, "关于端口扫描器",
-            "高级端口扫描器 v2.0\n\n"
-            "功能特性：\n"
-            "- 多线程端口扫描\n"
-            "- 服务识别与版本检测\n"
-            "- Web框架识别\n"
-            "- 结果可视化分析\n"
-            "- 代理支持\n\n"
-            "© 2025 网络安全工具集");
+                           "高级端口扫描器 v2.0\n\n"
+                           "功能特性：\n"
+                           "- 多线程端口扫描\n"
+                           "- 服务识别与版本检测\n"
+                           "- Web框架识别\n"
+                           "- 结果可视化分析\n"
+                           "- 代理支持\n\n"
+                           "© 2025 网络安全工具集");
     }
+
     QAction *scanAction;
     QAction *stopAction;
     QAction *exportAction;
@@ -1084,7 +1074,19 @@ private slots:
                 return;
             }
 
-            QString ipAddress = info.addresses().isEmpty() ? target : info.addresses().first().toString();
+            QHostAddress ipv4Address;
+            for (const QHostAddress &address : info.addresses()) {
+                if (address.protocol() == QAbstractSocket::IPv4Protocol) {
+                    ipv4Address = address;
+                    break;
+                }
+            }
+
+            if (ipv4Address.isNull() && !info.addresses().isEmpty()) {
+                ipv4Address = info.addresses().first(); // 没有IPv4，使用第一个地址
+            }
+
+            QString ipAddress = ipv4Address.isNull() ? target : ipv4Address.toString();
             statusBar()->showMessage("扫描中...");
             progressBar->setValue(0);
 
@@ -1098,8 +1100,8 @@ private slots:
 
 
     bool checkAdminPrivileges() {
-        // Windows: 检查是否以管理员身份运行
-        #ifdef Q_OS_WIN
+// Windows: 检查是否以管理员身份运行
+#ifdef Q_OS_WIN
         BOOL isAdmin = FALSE;
         HANDLE hToken = NULL;
 
@@ -1116,9 +1118,9 @@ private slots:
         return isAdmin;
 
         // Linux/macOS: 检查root权限
-        #else
+#else
         return geteuid() == 0;
-        #endif
+#endif
     }
 
     void stopScan() {
@@ -1183,6 +1185,7 @@ private slots:
     void onScanFinished() {
         statusBar()->showMessage(QString("扫描完成，发现 %1 个开放端口").arg(foundPorts.size()));
         progressBar->setValue(100);
+        stopScan();
     }
 
     void showPortDetails(int port, const QString &service, const QString &version,
@@ -1196,10 +1199,10 @@ private slots:
         QString filterCategory = "";
 
         switch (index) {
-            case 1: filterCategory = "web"; break;
-            case 2: filterCategory = "database"; break;
-            case 3: filterCategory = "remote"; break;
-            case 4: filterCategory = "file"; break;
+        case 1: filterCategory = "web"; break;
+        case 2: filterCategory = "database"; break;
+        case 3: filterCategory = "remote"; break;
+        case 4: filterCategory = "file"; break;
         }
 
         for (int row = 0; row < resultsTable->rowCount(); ++row) {
@@ -1237,7 +1240,7 @@ private slots:
             "导出结果",
             "",
             "CSV文件 (*.csv);;JSON文件 (*.json);;所有文件 (*.*)"
-        );
+            );
 
         if (fileName.isEmpty()) return;
 
